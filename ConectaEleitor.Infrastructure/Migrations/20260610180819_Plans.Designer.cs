@@ -3,6 +3,7 @@ using System;
 using ConectaEleitor.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ConectaEleitor.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260610180819_Plans")]
+    partial class Plans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,172 +110,6 @@ namespace ConectaEleitor.Infrastructure.Migrations
                     b.HasIndex("Status");
 
                     b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPost", b =>
-                {
-                    b.Property<Guid>("AssemblymanPostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CommentsCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CoverImageUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsPinned")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("LikesCount")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Summary")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("ViewsCount")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AssemblymanPostId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("IsPublished");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AssemblymanPosts");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostCategory", b =>
-                {
-                    b.Property<Guid>("AssemblymanPostCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("AssemblymanPostCategoryId");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("OwnerId", "Name")
-                        .IsUnique();
-
-                    b.ToTable("AssemblymanPostCategories");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostComment", b =>
-                {
-                    b.Property<Guid>("AssemblymanPostCommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("ParentCommentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AssemblymanPostCommentId");
-
-                    b.HasIndex("ParentCommentId");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AssemblymanPostComments");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostLike", b =>
-                {
-                    b.Property<Guid>("AssemblymanPostLikeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AssemblymanPostLikeId");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("PostId", "UserId")
-                        .IsUnique();
-
-                    b.ToTable("AssemblymanPostLikes");
                 });
 
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.Citizen", b =>
@@ -713,10 +550,9 @@ namespace ConectaEleitor.Infrastructure.Migrations
 
                     b.HasKey("PlanLimitId");
 
-                    b.HasIndex("PlanId", "Type")
-                        .IsUnique();
+                    b.HasIndex("PlanId");
 
-                    b.ToTable("PlanLimits", (string)null);
+                    b.ToTable("PlanLimits");
                 });
 
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.PlanUsage", b =>
@@ -769,81 +605,6 @@ namespace ConectaEleitor.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("PlanUsages", (string)null);
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.PoliticalProfile", b =>
-                {
-                    b.Property<Guid>("PoliticalProfileId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BannerUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Bio")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Office")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Party")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("PhotoUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("State")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("PoliticalProfileId");
-
-                    b.HasIndex("IsActive");
-
-                    b.HasIndex("IsVerified");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("City", "State");
-
-                    b.HasIndex("OwnerId", "UserId")
-                        .IsUnique();
-
-                    b.ToTable("PoliticalProfile");
                 });
 
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.SubscriptionHistory", b =>
@@ -1103,45 +864,6 @@ namespace ConectaEleitor.Infrastructure.Migrations
                     b.Navigation("Citizen");
                 });
 
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPost", b =>
-                {
-                    b.HasOne("ConectaEleitor.Domain.Entities.AssemblymanPostCategory", "Category")
-                        .WithMany("Posts")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostComment", b =>
-                {
-                    b.HasOne("ConectaEleitor.Domain.Entities.AssemblymanPostComment", "ParentComment")
-                        .WithMany("Replies")
-                        .HasForeignKey("ParentCommentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("ConectaEleitor.Domain.Entities.AssemblymanPost", "Post")
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParentComment");
-
-                    b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostLike", b =>
-                {
-                    b.HasOne("ConectaEleitor.Domain.Entities.AssemblymanPost", "Post")
-                        .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.Citizen", b =>
                 {
                     b.HasOne("ConectaEleitor.Domain.Entities.Citizen", "Leader")
@@ -1280,23 +1002,6 @@ namespace ConectaEleitor.Infrastructure.Migrations
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.Agenda", b =>
                 {
                     b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPost", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Likes");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostCategory", b =>
-                {
-                    b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("ConectaEleitor.Domain.Entities.AssemblymanPostComment", b =>
-                {
-                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("ConectaEleitor.Domain.Entities.Citizen", b =>

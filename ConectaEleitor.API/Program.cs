@@ -20,6 +20,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<AppointmentMappingProfile>();
     cfg.AddProfile<CitizenMappingProfile>();
     cfg.AddProfile<AgendaMappingProfile>();
+    cfg.AddProfile<PlanBillingMappingProfile>();
+    cfg.AddProfile<AssemblymanPostMappingProfile>();
 });
 
 builder.Services.AddOpenApi();
@@ -70,12 +72,24 @@ builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IDemandService, DemandService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IPlanService, PlanService>();
+builder.Services.AddScoped<IOwnerSubscriptionService, OwnerSubscriptionService>();
+builder.Services.AddScoped<IPlanUsageService, PlanUsageService>();
+builder.Services.AddScoped<IPaymentTransactionService, PaymentTransactionService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPostCommentService, PostCommentService>();
 // Repositories
 builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
 builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IDemandRepository, DemandRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+builder.Services.AddScoped<IOwnerSubscriptionRepository, OwnerSubscriptionRepository>();
+builder.Services.AddScoped<IPlanUsageRepository, PlanUsageRepository>();
+builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostCommentRepository, PostCommentRepository>();
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>() ?? [];
