@@ -29,6 +29,8 @@ public class AppointmentRepository : IAppointmentRepository
     {
         var query = _context.Appointments.AsNoTracking()
             .Where(a => a.OwnerId == ownerId)
+            .Include(x => x.Agenda)
+            .Include(x => x.Citizen)
             .OrderByDescending(a => a.CreatedAt);
         var totalCount = await query.CountAsync();
         var data = await query

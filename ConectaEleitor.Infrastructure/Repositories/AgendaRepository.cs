@@ -29,6 +29,7 @@ public class AgendaRepository : IAgendaRepository
     {
         var query = _context.Agendas.AsNoTracking()
             .Where(a => a.OwnerId == ownerId)
+            .Include(x => x.Appointments)
             .OrderByDescending(a => a.CreatedAt);
         var totalItems = await query.CountAsync();
         var data = await query

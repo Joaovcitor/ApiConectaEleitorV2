@@ -30,6 +30,7 @@ public class DemandRepository : IDemandRepository
     {
         var query = _context.Demands.AsNoTracking()
             .Where(de => de.OwnerId == ownerId)
+            .Include(x => x.Citizen)
             .OrderByDescending(de => de.CreatedAt);
         var totalCount = await query.CountAsync();
         var data = await query

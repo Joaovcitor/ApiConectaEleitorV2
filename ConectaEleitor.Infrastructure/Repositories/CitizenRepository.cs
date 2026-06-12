@@ -35,6 +35,7 @@ public class CitizenRepository : ICitizenRepository
     {
         var query = _context.Citizens.AsNoTracking()
             .Where(ci => ci.OwnerId == ownerId)
+            .Include(x => x.Leader)
             .OrderByDescending(ci => ci.FullName);
         var totalCount = await query.CountAsync();
         var data = await query

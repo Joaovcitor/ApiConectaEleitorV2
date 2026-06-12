@@ -14,6 +14,7 @@ public class CitizenResponseDTO
 
     public string? Neighborhood { get; set; }
     public string? District { get; set; }
+    public string? ZipCode { get; set; }
 
     public string? ElectoralZone { get; set; }
     public string? ElectoralSection { get; set; }
