@@ -22,6 +22,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<AgendaMappingProfile>();
     cfg.AddProfile<PlanBillingMappingProfile>();
     cfg.AddProfile<AssemblymanPostMappingProfile>();
+    cfg.AddProfile<TagProfileMapping>();
+    cfg.AddProfile<TagCitizenProfile>();
 });
 
 builder.Services.AddOpenApi();
@@ -78,6 +80,8 @@ builder.Services.AddScoped<IPlanUsageService, PlanUsageService>();
 builder.Services.AddScoped<IPaymentTransactionService, PaymentTransactionService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IPostCommentService, PostCommentService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ITagCitizenService, TagCitizenService>();
 // Repositories
 builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
 builder.Services.AddScoped<IAgendaRepository, AgendaRepository>();
@@ -90,6 +94,8 @@ builder.Services.AddScoped<IPlanUsageRepository, PlanUsageRepository>();
 builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostCommentRepository, PostCommentRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ITagCitizenRepository, TagCitizenRepository>();
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>() ?? [];

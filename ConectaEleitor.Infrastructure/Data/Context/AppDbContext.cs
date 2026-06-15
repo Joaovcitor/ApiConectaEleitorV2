@@ -28,6 +28,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
     public DbSet<AssemblymanPostComment> AssemblymanPostComments { get; set; }
     public DbSet<AssemblymanPostLike> AssemblymanPostLikes { get; set; }
     public DbSet<AssemblymanPostCategory> AssemblymanPostCategories { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<TagCitizen> TagCitizens { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

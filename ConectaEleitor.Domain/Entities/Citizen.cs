@@ -36,6 +36,7 @@ public class Citizen
 
     public ICollection<Citizen> LedCitizens { get; set; } = [];
     public ICollection<Demand> Demands { get; set; } = [];
+    public ICollection<TagCitizen> TagCitizens { get; set; } = [];
     public bool IsActive { get; set; } = true;
     public string? Notes { get; set; }
     public Guid? UserId { get; set; }
