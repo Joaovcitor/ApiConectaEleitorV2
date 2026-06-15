@@ -22,7 +22,7 @@ public class AgendaService : IAgendaService
 
     public async Task<AgendaResponseDTO> CreateAsync(AgendaCreateDTO agendaCreateDTO)
     {
-        var ownerId = _userContext.UserId;
+        var ownerId = _userContext.OwnerId;
         var agenda = _mapper.Map<Agenda>(agendaCreateDTO);
         agenda.OwnerId = ownerId;
         agenda.CreatedAt = DateTime.UtcNow;
@@ -33,7 +33,7 @@ public class AgendaService : IAgendaService
 
     public async Task<AgendaResponseByIdDTO> GetByIdAsync(Guid agendaId)
     {
-        var ownerId = _userContext.UserId;
+        var ownerId = _userContext.OwnerId;
         var agenda = await  _agendaRepository.GetByIdAsync(agendaId, ownerId);
         if (agenda is null)
         {
@@ -44,7 +44,7 @@ public class AgendaService : IAgendaService
 
     public async Task<PagedResult<AgendaResponseDTO>> GetAll(PaginationParams paginationParams)
     {
-        var ownerId = _userContext.UserId;
+        var ownerId = _userContext.OwnerId;
         var agendas = await _agendaRepository.GetAllAsync(paginationParams, ownerId);
         var data = _mapper.Map<IEnumerable<AgendaResponseDTO>>(agendas.Data);
         return new PagedResult<AgendaResponseDTO>(data, agendas.TotalCount, paginationParams.PageNumber, paginationParams.PageSize);
@@ -52,7 +52,7 @@ public class AgendaService : IAgendaService
 
     public async Task<AgendaResponseDTO> UpdateAsync(Guid agendaId, AgendaUpdateDTO agendaUpdateDTO)
     {
-        var ownerId = _userContext.UserId;
+        var ownerId = _userContext.OwnerId;
         var agenda = await _agendaRepository.GetByIdAsync(agendaId, ownerId);
         if (agenda.OwnerId != ownerId)
         {
@@ -72,7 +72,7 @@ public class AgendaService : IAgendaService
 
     public async Task DeleteAsync(Guid agendaId)
     {
-        var ownerId = _userContext.UserId;
+        var ownerId = _userContext.OwnerId;
         var agenda = await _agendaRepository.GetByIdAsync(agendaId, ownerId);
         if (agenda.OwnerId != ownerId)
         {
